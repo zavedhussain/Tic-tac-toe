@@ -14,7 +14,7 @@ const gameBoard = (function () {
   const addToken = (player, cell) => {
     // const playerOne = 1;
     // const playerTwo = 2;
-    const { name, token } = player;
+    const { token } = player;
     const [row, col] = cell.split("-");
     if (board[row][col] === 0) {
       board[row][col] = token;
@@ -33,22 +33,30 @@ const player = (name, token) => {
 
 //this is a module
 const gameController = (function () {
-  const playerOne = player("PlayerOne", 1);
-  const playerTwo = player("PlayerTwo", 2);
+  const playerOne = player("PlayerOne", "X");
+  const playerTwo = player("PlayerTwo", "O");
   let count = 1;
 
   if (count === 1) {
     console.log(playerOne.name, "turn:");
+    const turnDisplay = document.querySelector(".turn-display");
+    turnDisplay.textContent = `${playerOne.name}'s turn`;
   }
   const updateCount = (winner) => {
     count++;
+    const player = getTurn();
+    console.log(player.name, "turn:");
+    const turnDisplay = document.querySelector(".turn-display");
+    turnDisplay.textContent = `${player.name}'s turn`;
     if (count === 10 && winner === null) {
-      console.log("Tie");
+      declareWinner("Tie");
     }
   };
+
   const getTurn = () => {
     return count % 2 === 0 ? playerTwo : playerOne;
   };
+
   const updateDOM = (cell) => {
     const board = gameBoard.getBoard();
     const [row, col] = cell.split("-");
@@ -59,16 +67,39 @@ const gameController = (function () {
       (gameCell) => gameCell.dataset.cell === dataCell
     );
     newCell.textContent = board[row][col];
+    if (board[row][col] === "X") {
+      newCell.classList.toggle("one");
+    } else {
+      newCell.classList.toggle("two");
+    }
   };
 
-  const playRound = (player, cell) => {
+  const declareWinner = (name) => {
+    const winDisplay = document.querySelector(".winner-display");
+    if (name === "Tie") {
+      winDisplay.textContent = `It's a ${name}`;
+    } else {
+      winDisplay.textContent = `${name} wins the game`;
+    }
+    winDisplay.classList.toggle("active");
+    const gameCells = document.querySelectorAll(".game-cell");
+    for (let gameCell of gameCells) {
+      gameCell.removeEventListener("click", playRound);
+    }
+  };
+  const playRound = (e) => {
+    const cell = e.target.dataset.cell;
+    const player = getTurn();
+    console.log(player, cell);
     const tokenAdded = gameBoard.addToken(player, cell);
     if (tokenAdded) {
       updateDOM(cell);
       const winner = evalWinner(player);
-      console.log(winner);
-      updateCount(winner);
-      //   setNextRound();
+      if (winner) {
+        declareWinner(winner);
+      } else {
+        updateCount(winner);
+      }
     } else {
       alert("Error,cell already filled");
     }
@@ -76,11 +107,6 @@ const gameController = (function () {
 
   const gameCells = document.querySelectorAll(".game-cell");
   for (let gameCell of gameCells) {
-    gameCell.addEventListener("click", (e) => {
-      const cell = gameCell.dataset.cell;
-      const player = getTurn();
-      console.log(player);
-      playRound(player, cell);
-    });
+    gameCell.addEventListener("click", playRound);
   }
 })();

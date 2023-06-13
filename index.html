@@ -5,26 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <script src="scripts.js" defer></script>
     <script src="evalWinner.js" defer></script>
     <title>Tic Tac Toe</title>
   </head>
   <body>
     <div class="header">
-      <h1>TIC TAC TOE</h1>
+      <p>TIC TAC TOE</p>
     </div>
     <div class="container">
-      <div class="game-board">
-        <div class="game-cell" data-cell="0-0">0</div>
-        <div class="game-cell" data-cell="0-1">0</div>
-        <div class="game-cell" data-cell="0-2">0</div>
-        <div class="game-cell" data-cell="1-0">0</div>
-        <div class="game-cell" data-cell="1-1">0</div>
-        <div class="game-cell" data-cell="1-2">0</div>
-        <div class="game-cell" data-cell="2-0">0</div>
-        <div class="game-cell" data-cell="2-1">0</div>
-        <div class="game-cell" data-cell="2-2">0</div>
+      <div class="turn-display"></div>
+      <div class="game-board active">
+        <div class="game-cell" data-cell="0-0"></div>
+        <div class="game-cell" data-cell="0-1"></div>
+        <div class="game-cell" data-cell="0-2"></div>
+        <div class="game-cell" data-cell="1-0"></div>
+        <div class="game-cell" data-cell="1-1"></div>
+        <div class="game-cell" data-cell="1-2"></div>
+        <div class="game-cell" data-cell="2-0"></div>
+        <div class="game-cell" data-cell="2-1"></div>
+        <div class="game-cell" data-cell="2-2"></div>
       </div>
+      <div class="winner-display">XYZ</div>
     </div>
     <div class="footer">
       <p>© 2023 Zaved Hussain Sikdar. All rights reserved.</p>

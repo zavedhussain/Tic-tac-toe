@@ -1,6 +1,6 @@
-const evalWinner = (player) => {
+const evalWinner = ({ name }) => {
   const board = gameBoard.getBoard();
-  const { name, token } = player;
+
   let marker = board[0][0];
   for (let i = 0; i < 3; i++) {
     marker = board[i][0];
@@ -11,8 +11,7 @@ const evalWinner = (player) => {
           //   console.log("game not over");
           break;
         } else if (j === 2) {
-          console.log(`${name} wins the game`);
-          return player;
+          return name;
         }
       }
     }
@@ -28,8 +27,7 @@ const evalWinner = (player) => {
           //   console.log("game not over");
           break;
         } else if (j === 2) {
-          console.log(`${name} wins the game`);
-          return player;
+          return name;
         }
       }
     }
@@ -43,8 +41,7 @@ const evalWinner = (player) => {
         // console.log("game not over");
         break;
       } else if (j === 2 && i == 2) {
-        console.log(`${name} wins the game`);
-        return player;
+        return name;
       }
     }
   }
@@ -57,8 +54,7 @@ const evalWinner = (player) => {
         // console.log("game not over");
         break;
       } else if (j === 0 && i == 2) {
-        console.log(`${name} wins the game`);
-        return player;
+        return name;
       }
     }
   }
